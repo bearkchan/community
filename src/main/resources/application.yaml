@@ -1,9 +1,17 @@
 server:
   port: 8887
 
+
+# github Authorize Configure
 github:
   client:
     id: 2cc2f068391fc9357452
     secret: 656f1ebf4db1cf47f148e80028328c8c74905465
   redirect:
     uri: http://localhost:8887/callback
+spring:
+  datasource:
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/community
