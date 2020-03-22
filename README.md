@@ -1,5 +1,5 @@
 ## 小海社区
 
-### 工具
+### 资料
 - [WebJars](https://www.webjars.org/)
-- [Github OAuth Document](https://developer.github.com/apps/building-github-apps/creating-a-github-app/)
+- [Github OAuth Document](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)
