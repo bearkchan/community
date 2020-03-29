@@ -38,7 +38,8 @@ public class GitHubProvider {
         Request request = new Request.Builder()
                 .url("https://api.github.com/user?access_token="+accessToken)
                 .build();
-        try (Response response = client.newCall(request).execute()) {
+        try{
+            Response response = client.newCall(request).execute();
             String string = response.body().string();
             return JSON.parseObject(string, GitHubUserDTO.class);
         } catch (IOException e) {
