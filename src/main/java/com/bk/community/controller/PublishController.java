@@ -5,16 +5,13 @@ import com.bk.community.model.User;
 import com.bk.community.service.PublishService;
 import com.bk.community.service.UserService;
 import com.mysql.cj.util.StringUtils;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * @author bear
@@ -37,20 +34,8 @@ public class PublishController {
     @PostMapping("/publish")
     public String create(Question question, HttpServletRequest request, Model model) {
         String errMsg;
-        User user=null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies!=null&&cookies.length!=0) {
-            for (Cookie cookie : cookies) {
-                if ("token".equals(cookie.getName())) {
-                    String token = cookie.getValue();
-                    user = userService.findUserByToken(token);
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
-                    }
-                    break;
-                }
-            }
-        }
+
+        User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             errMsg = "用户尚未登陆";
         } else if (StringUtils.isNullOrEmpty(question.getTitle())) {

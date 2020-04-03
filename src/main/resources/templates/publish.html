@@ -1,57 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
+<head th:replace="public/header::common_header(~{::title},~{},~{})">
     <title>发布-小海社区</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css}">
-    <link rel="stylesheet" href="css/community.css">
-    <script th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
 </head>
 <body>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">小海社区</span>
-            </button>
-            <a class="navbar-brand" href="#" th:href="@{/}">小海社区</a>
-        </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="搜索问题">
-                </div>
-                <button type="submit" class="btn btn-default">搜索</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
+<div th:replace="public/header::nav"></div>
 
-                <li th:if="${session.user!=null}">
-                    <a href="#" th:href="@{/publish}">发布</a>
-                </li>
-                <li th:if="${session.user==null}"><a
-                        href="https://github.com/login/oauth/authorize?client_id=2cc2f068391fc9357452&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登录</a>
-                </li>
-
-                <li th:if="${session.user!=null}" class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false" th:text="${session.user.name}"> <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">消息中心</a></li>
-                        <li><a href="#">个人资料</a></li>
-                        <li><a href="#">退出登录</a></li>
-                    </ul>
-                </li>
-
-            </ul>
-        </div>
-    </div>
-</nav>
 <div class="container-fluid main">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
@@ -61,7 +18,8 @@
             <form action="#" method="post" th:action="@{/publish}" th:object="${question}">
                 <div class="form-group">
                     <labbel for="title">问题标题（简单扼要）:</labbel>
-                    <input type="text" class="form-control" name="title" id="title" placeholder="问题标题..." th:value="*{title}">
+                    <input type="text" class="form-control" name="title" id="title" placeholder="问题标题..."
+                           th:value="*{title}">
                 </div>
                 <div class="form-group">
                     <labbel for="description">问题补充（必填，请参考右侧提示）:</labbel>
@@ -70,10 +28,11 @@
                 </div>
                 <div class="form-group">
                     <labbel for="tag">添加标签:</labbel>
-                    <input type="text" class="form-control" name="tag" id="tag" placeholder="请输入标签，以','隔开" th:value="*{tag}">
+                    <input type="text" class="form-control" name="tag" id="tag" placeholder="请输入标签，以','隔开"
+                           th:value="*{tag}">
                 </div>
                 <div class="alert alert-danger" role="alert" th:if="${errMsg!=null}">
-                    <span  th:text="'Tips:'+${errMsg}"></span>
+                    <span th:text="'Tips:'+${errMsg}"></span>
                 </div>
                 <button class="btn btn-success btn-publish" type="submit">发布</button>
             </form>
