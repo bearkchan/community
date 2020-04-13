@@ -23,6 +23,19 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
+    public void createOrUpdate(Question question) {
+        if (question.getId()==null){
+            // 新增
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.create(question);
+        }else {
+            // 更新
+            question.setGmtModified(System.currentTimeMillis());
+            questionMapper.update(question);
+        }
+    }
+
     public PaginationDTO<QuestionDTO> list(Integer page, Integer size) {
         PaginationDTO<QuestionDTO> questionDtoPagination = new PaginationDTO<>();
         Integer count = questionMapper.count();
@@ -67,5 +80,14 @@ public class QuestionService {
 
         questionDtoPagination.setData(questionDtoList);
         return questionDtoPagination;
+    }
+
+    public QuestionDTO detail(Integer id) {
+        QuestionDTO questionDTO = new QuestionDTO();
+        Question question = questionMapper.getQuestionById(id);
+        User user = userMapper.findUserById(question.getCreator());
+        BeanUtils.copyProperties(question, questionDTO);
+        questionDTO.setUser(user);
+        return questionDTO;
     }
 }

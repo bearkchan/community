@@ -2,10 +2,7 @@ package com.bk.community.mapper;
 
 import com.bk.community.dto.PaginationDTO;
 import com.bk.community.model.Question;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Property;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,7 +21,7 @@ public interface QuestionMapper {
      * @param size 每页个数
      * @return
      */
-    @Select("select * from co_question limit ${(page-1)*size},#{size}")
+    @Select("select * from co_question  order by gmt_create desc limit ${(page-1)*size},#{size}")
     List<Question> list(@Param("page") Integer page, @Param("size") Integer size);
 
     /**
@@ -52,4 +49,24 @@ public interface QuestionMapper {
      */
     @Select("select count(1) from co_question where creator=#{uid}")
     Integer countByUser(@Param("uid")Integer uid);
+
+
+    /**
+     * 根据问题id获取问题详情
+     * @param id 问题id
+     * @return
+     */
+    @Select("select * from co_question where id=#{id}")
+    Question getQuestionById(@Param("id") Integer id);
+
+
+    /**
+     * 发布问题
+     * @param question 需要添加的问题
+     */
+    @Insert("insert into co_question(title,description,creator,tag,gmt_create,gmt_modified) values (#{title},#{description},#{creator},#{tag},#{gmtCreate},#{gmtModified})")
+    void create(Question question);
+
+    @Update("update co_question set title=#{title}, description=#{description},tag=#{tag},gmt_modified=#{gmtModified} where id=#{id}")
+    void update(Question question);
 }

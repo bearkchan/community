@@ -16,20 +16,21 @@
             <hr>
 
             <form action="#" method="post" th:action="@{/publish}" th:object="${question}">
+                <input type="hidden" name="id" th:value="${id}">
                 <div class="form-group">
                     <labbel for="title">问题标题（简单扼要）:</labbel>
                     <input type="text" class="form-control" name="title" id="title" placeholder="问题标题..."
-                           th:value="*{title}">
+                           th:value="${title}">
                 </div>
                 <div class="form-group">
                     <labbel for="description">问题补充（必填，请参考右侧提示）:</labbel>
                     <textarea name="description" id="description" class="form-control" cols="30"
-                              rows="10" th:text="*{description}"></textarea>
+                              rows="10" th:text="${description}"></textarea>
                 </div>
                 <div class="form-group">
                     <labbel for="tag">添加标签:</labbel>
                     <input type="text" class="form-control" name="tag" id="tag" placeholder="请输入标签，以','隔开"
-                           th:value="*{tag}">
+                           th:value="${tag}">
                 </div>
                 <div class="alert alert-danger" role="alert" th:if="${errMsg!=null}">
                     <span th:text="'Tips:'+${errMsg}"></span>

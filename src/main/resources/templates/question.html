@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="public/header::common_header(~{::title},~{},~{})">
+    <title th:text="${question.title}"></title>
+</head>
+<body>
+<div th:replace="public/header::nav"></div>
+
+<div class="container-fluid main profile">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h4 th:text="${question.title}"></h4>
+            <hr>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="list-text">
+                    作者：<span th:text="${question.user.name}"></span> |
+                    浏览数：<span th:text="${question.viewCount}"></span> |
+                    发布时间：<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm:ss')}"></span>
+                </span>
+                <hr>
+                <div th:text="${question.description}"></div>
+                <hr>
+                <a class="coummunity-menu" th:href="@{'/publish/'+${question.id}}" th:if="${session.user!=null && session.user.id == question.creator}" >
+                    <span class="glyphicon glyphicon-pencil"></span>编辑
+                </a>
+            </div>
+
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="clo-lg-12 clo-md=12 col-sm-12 col-xs-12">
+                <h4>发起人</h4>
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object avatarImg" th:alt="${question.user.name}"
+                                 th:src="${question.user.avatarUrl}">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading">
+                            <span th:text="${question.user.name}"></span>
+                        </h5>
+                    </div>
+                </div>
+                <hr>
+
+            </div>
+            <div class="clo-lg-12 clo-md=12 col-sm-12 col-xs-12">
+                <h4>相关问题</h4>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
