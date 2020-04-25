@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="public/header::common_header(~{::title},~{},~{})">
+    <title>错误页面</title>
+</head>
+<body>
+<div th:replace="public/header::nav"></div>
+
+<div class="container-fluid main">
+</div>
+<div class="jumbotron">
+    <h1>出现错误了</h1>
+    <p th:text="${message}">出错了！服务太热了，请稍后再试</p>
+    <p><a class="btn btn-primary btn-lg" href="/" role="button">回到首页</a></p>
+</div>
+</body>
+</html>

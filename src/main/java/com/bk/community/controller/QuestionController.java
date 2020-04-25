@@ -25,8 +25,11 @@ public class QuestionController {
     @GetMapping("/question/{id}")
     public String detail(@PathVariable(name = "id") Integer id,
                          Model model){
-        QuestionDTO questionDTO = questionService.detail(id);
-        model.addAttribute("question",questionDTO);
+        Integer isUpdated = questionService.incView(id);
+        if (isUpdated==1){
+            QuestionDTO questionDTO = questionService.detail(id);
+            model.addAttribute("question",questionDTO);
+        }
         return "question";
     }
 }
