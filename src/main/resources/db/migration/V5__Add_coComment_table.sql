@@ -1,5 +1,5 @@
 CREATE TABLE `community`.`co_comment`  (
-  `id` bigint(0) NOT NULL COMMENT 'Id',
+  `id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT 'Id',
   `parent_id` bigint(0) NOT NULL COMMENT '父类id',
   `type` int(11) NOT NULL COMMENT '类型',
   `commentator` int(11) NOT NULL COMMENT '评论人id',

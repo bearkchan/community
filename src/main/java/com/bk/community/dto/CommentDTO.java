@@ -6,22 +6,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author bear
- */
+ * @author : bear
+ * @date : 2020-04-26 00:09
+ **/
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class QuestionDTO {
+public class CommentDTO {
     private Long id;
-    private String title;
-    private String description;
+    private Long parentId;
+    private Long commentator;
     private Long gmtCreate;
     private Long gmtModified;
-    private Long creator;
-    private Integer commentCount;
-    private Integer viewCount;
     private Integer likeCount;
-    private String tag;
+    private String content;
+    private Integer type;
     private User user;
 }

@@ -4,6 +4,16 @@
 <head th:replace="public/header::common_header(~{::title},~{},~{})">
     <title>小海社区</title>
 </head>
+
+<script>
+    window.onload=function () {
+        var closable = window.localStorage.getItem("closable");
+        if (closable==="true"){
+            window.close();
+            window.localStorage.removeItem("closable");
+        }
+    }
+</script>
 <body>
 <div th:replace="public/header::nav"></div>
 

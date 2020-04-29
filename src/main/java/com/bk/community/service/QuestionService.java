@@ -37,6 +37,10 @@ public class QuestionService {
             // 新增
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
+            question.setViewCount(0);
+            question.setLikeCount(0);
+            question.setCommentCount(0);
+
             questionMapper.insert(question);
         } else {
             // 更新
@@ -62,8 +66,9 @@ public class QuestionService {
 
         // 获取处理后的page值
         page = questionDtoPagination.getCurrentPage();
-
-        List<Question> questions = questionMapper.selectByExampleWithRowbounds(new QuestionExample(), new RowBounds(page, size));
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.setOrderByClause("gmt_create desc");
+        List<Question> questions = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds((page-1)*size, size));
         List<QuestionDTO> questionDtoList = new ArrayList<>();
         for (Question question : questions) {
             User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -77,7 +82,7 @@ public class QuestionService {
         return questionDtoPagination;
     }
 
-    public PaginationDTO<QuestionDTO> getListByUser(Integer uid, Integer page, Integer size) {
+    public PaginationDTO<QuestionDTO> getListByUser(Long uid, Integer page, Integer size) {
         PaginationDTO<QuestionDTO> questionDtoPagination = new PaginationDTO<>();
 
         QuestionExample questionExample = new QuestionExample();
@@ -107,7 +112,7 @@ public class QuestionService {
         return questionDtoPagination;
     }
 
-    public QuestionDTO detail(Integer id) {
+    public QuestionDTO detail(Long id) {
         QuestionDTO questionDTO = new QuestionDTO();
         Question question = questionMapper.selectByPrimaryKey(id);
         if (Objects.isNull(question)) {
@@ -119,7 +124,7 @@ public class QuestionService {
         return questionDTO;
     }
 
-    public Integer incView(Integer id) {
+    public Integer incView(Long id) {
         Question record = new Question();
         record.setId(id);
         record.setViewCount(1);

@@ -32,7 +32,7 @@ public class PublishController {
      * @return 页面模板
      */
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable(name = "id") Integer id,
+    public String edit(@PathVariable(name = "id") Long id,
                        Model model,
                        HttpSession session) {
         QuestionDTO question = questionService.detail(id);
@@ -91,7 +91,7 @@ public class PublishController {
      * @param user 当前session用户
      * @return 是否是本人操作
      */
-    public boolean checkQuestionId(Integer id, User user) {
+    public boolean checkQuestionId(Long id, User user) {
         if (id != null) {
             // 检查这个question的id所对应的question是否是对应session的用户
             QuestionDTO detail = questionService.detail(id);
